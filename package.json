@@ -1,0 +1,33 @@
+{
+  "name": "@arma-events/web-fonts",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Ready to load web fonts, which are used by arma.events",
+  "homepage": "https://github.com/arma-events/web-fonts#readme",
+  "bugs": {
+    "url": "https://github.com/arma-events/web-fonts/issues"
+  },
+  "scripts": {
+    "build": "node build/index.js",
+    "fmt": "npx prettier --write ."
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "author": "Jonas Schade <derzade@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arma-events/web-fonts.git"
+  },
+  "devDependencies": {
+    "@sinclair/typebox": "^0.32.18",
+    "chalk": "^5.3.0",
+    "fontaine": "^0.5.0",
+    "pretty-bytes": "^6.1.1",
+    "sass": "^1.72.0"
+  }
+}
