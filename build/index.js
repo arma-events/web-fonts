@@ -2,14 +2,14 @@
 
 import { existsSync } from 'node:fs';
 import { rm, mkdir, copyFile, writeFile, readdir, stat } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 import { exec as execOriginal } from 'node:child_process';
-import { compileAsync } from 'sass';
+import { compileAsync, compileStringAsync } from 'sass';
 import prettyBytes from 'pretty-bytes';
 import chalk from 'chalk';
 import { loadFontConfig } from './config.js';
-import { IN_DIR, OUT_DIR, ROOT_DIR, STYLES, UNICODE_RANGES } from './consts.js';
+import { IN_DIR, OUT_DIR, ROOT_DIR, STYLES, TEST_APP_DIR, UNICODE_RANGES } from './consts.js';
 import { renderIndexSCSS } from './scss.js';
 import { renderFallbackFontsCSS } from './fallback.js';
 import { coloredPath } from './utils.js';
@@ -83,6 +83,27 @@ for (const [font, config] of Object.entries(CONFIGS)) {
     }
   }
   console.log(`✅ Generated woff2 files for ${chalk.underline(font)}`);
+}
+
+// test app
+{
+  console.log('');
+  console.log('➡️  Generating test app in', coloredPath(TEST_APP_DIR));
+
+  if (existsSync(TEST_APP_DIR)) await rm(TEST_APP_DIR, { recursive: true });
+  await mkdir(TEST_APP_DIR);
+  console.log('    🔥 Cleared', coloredPath(TEST_APP_DIR));
+
+  const htmlPath = join(TEST_APP_DIR, 'index.html');
+  await copyFile(join(ROOT_DIR, 'build', 'index.html'), htmlPath);
+  console.log('    ✅ Copied index.html to', coloredPath(htmlPath));
+
+  const result = await compileStringAsync(`@use '../dist/index.scss' with ($base-path: '../dist/woff2');`, {
+    url: new URL(resolve(join(TEST_APP_DIR, 'index.scss')), 'file://'),
+  });
+  const cssPath = join(TEST_APP_DIR, 'index.css');
+  await writeFile(cssPath, result.css, 'utf-8');
+  console.log('    📦️ Compiled', coloredPath(cssPath));
 }
 
 console.log('');

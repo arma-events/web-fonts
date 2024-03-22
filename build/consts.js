@@ -9,6 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export const ROOT_DIR = join(__dirname, '..');
 export const IN_DIR = join(ROOT_DIR, 'fonts');
 export const OUT_DIR = join(ROOT_DIR, 'dist');
+export const TEST_APP_DIR = join(ROOT_DIR, 'test_app');
 export const FALLBACK_FONTS_DIR = join(ROOT_DIR, 'fallback_fonts');
 
 /**
