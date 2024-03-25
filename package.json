@@ -2,7 +2,7 @@
   "name": "@arma-events/web-fonts",
   "version": "1.0.0",
   "type": "module",
-  "description": "Ready to load web fonts, which are used by arma.events",
+  "description": "Packaged, ready-to-use web fonts for arma.events and all related projects.",
   "homepage": "https://github.com/arma-events/web-fonts#readme",
   "bugs": {
     "url": "https://github.com/arma-events/web-fonts/issues"

@@ -1,7 +1,11 @@
 # Web Fonts for arma.events
 
-This package includes all web fonts used in arma.events and related projects. Each font is segmented in multiple unicode ranges so that a browser only needs to download the font resource needed for the displayed text content.
-Furthermore each font is accompanied by a fallback font that should be displayed while the resources are loading. It is a font that is locally available on most systems and is adjusted to match the size of the target font as closely as possible to reduce layout shift.
+This package includes all web fonts used in arma.events and related projects.
+
+Each font is...
+
+- ...segmented in multiple unicode ranges so that a browser only needs to download the font resource needed for the displayed text content
+- ...accompanied by a fallback font that should be displayed while the resources are loading. It is a font that is locally available on most systems and is adjusted to match the size of the target font as closely as possible to reduce layout shift.
 
 ## Installation
 
