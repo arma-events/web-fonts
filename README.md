@@ -9,14 +9,6 @@ Furthermore each font is accompanied by a fallback font that should be displayed
 npm i @arma-events/web-fonts
 ```
 
-> [!IMPORTANT]
-> Make sure the `.npmrc` file in your project correctly configures the GitHub package registry for the `@arma-events/`-namespace:
->
-> ```
-> # .npmrc
-> @arma-events:registry=https://npm.pkg.github.com
-> ```
-
 ## Usage
 
 Simply include the css file, which includes font-faces for all font as well as their fallback fonts:

@@ -11,9 +11,6 @@
     "build": "node build/index.js",
     "fmt": "npx prettier --write ."
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "author": "Jonas Schade <derzade@gmail.com>",
   "license": "MIT",
   "files": [
@@ -21,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/arma-events/web-fonts.git"
+    "url": "git+https://github.com/arma-events/web-fonts.git"
   },
   "devDependencies": {
     "@sinclair/typebox": "^0.32.18",
