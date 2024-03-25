@@ -78,7 +78,7 @@ This directory contains all fonts that should be built. Each font has a subdirec
 - `normal.ttf`: The [variable font](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts) in the normal style
 - `italic.ttf`: The [variable font](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts) in the italic style
 - `static/normal.ttf`: The static font in the normal style and regular weight _(is only used to calculate the overrides of the fallback font)_
-- `static/italic.ttf`: The static font in the normal style and italic weight _(is only used to calculate the overrides of the fallback font)_
+- `static/italic.ttf`: The static font in the italic style and regular weight _(is only used to calculate the overrides of the fallback font)_
 - `config.json`: The configuration for the font. Includes an object, which has to have the following properties:
   | Key | Example | Description |
   | --- | --- | --- |
