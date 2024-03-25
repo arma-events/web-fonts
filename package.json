@@ -1,6 +1,6 @@
 {
   "name": "@arma-events/web-fonts",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "description": "Packaged, ready-to-use web fonts for arma.events and all related projects.",
   "homepage": "https://github.com/arma-events/web-fonts#readme",
