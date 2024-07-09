@@ -49,12 +49,12 @@ console.log('');
   await writeFile(
     path,
     [
-      `@use 'sass:map';`,
       `$families: ${arrayToScssList(Object.keys(CONFIGS))};`,
       `$styles: ${arrayToScssList(STYLES)};`,
+      `$ranges: ${arrayToScssList(Object.keys(UNICODE_RANGES))};`,
+      '',
       `$weights: ${objToScssMap(Object.fromEntries(Object.entries(CONFIGS).map(([k, v]) => [k, v.weight])))};`,
       `$unicode-ranges: ${objToScssMap(UNICODE_RANGES)};`,
-      `$ranges: map.keys($unicode-ranges)`,
     ].join('\n'),
   );
   console.log('📝 Wrote build infos to', coloredPath(path));
