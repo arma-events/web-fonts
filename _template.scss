@@ -1,63 +1,70 @@
 $base-path: '@arma-events/web-fonts/dist' !default;
 $unicode-ranges: () !default;
-$fonts: () !default;
+$families: () !default;
 $weights: () !default;
+$styles: () !default;
 
 @use 'sass:map';
 @use 'sass:string';
+@use 'sass:list';
 
-@mixin -default-descriptors($font) {
-  font-family: $font;
+@mixin -default-descriptors($family) {
+  font-family: $family;
   font-display: swap;
-  @if map.has-key($weights, $font) {
-    font-weight: string.unquote(map.get($weights, $font));
+  @if map.has-key($weights, $family) {
+    font-weight: string.unquote(map.get($weights, $family));
   } @else {
     font-weight: 200 900;
   }
 }
 
-@function -path($font, $style, $subset) {
-  @return '#{$base-path}/#{$font}/#{$style}.#{$subset}.woff2';
+@function -path($family, $style, $subset) {
+  @return '#{$base-path}/#{$family}/#{$style}.#{$subset}.woff2';
 }
 
-@each $font in $fonts {
+@each $family in $families {
   @each $subset, $range in $unicode-ranges {
-    @each $style in (normal, italic) {
+    @each $style in $styles {
       @font-face {
-        @include -default-descriptors($font);
+        @include -default-descriptors($family);
         font-style: $style;
 
         src:
-          local('#{$font}'),
-          url(-path($font, $style, $subset)) format('woff2-variations');
+          local('#{$family}'),
+          url(-path($family, $style, $subset)) format('woff2-variations');
         unicode-range: string.unquote($range);
       }
     }
   }
 }
 
-/* Source Sans 3: use ∞ Symbol (U+221E) from Raleway */
-@each $style in (normal, italic) {
-  @font-face {
-    @include -default-descriptors('Source Sans 3');
-    font-style: $style;
 
-    src:
-      local('Raleway'),
-      url(-path('Raleway', $style, 'latin')) format('woff2-variations');
-    unicode-range: U+221E;
+@if list.index($families, 'Source Sans 3') {
+  /* Source Sans 3: use ∞ Symbol (U+221E) from Raleway */
+  @each $style in $styles {
+    @font-face {
+      @include -default-descriptors('Source Sans 3');
+      font-style: $style;
+  
+      src:
+        local('Raleway'),
+        url(-path('Raleway', $style, 'latin')) format('woff2-variations');
+      unicode-range: U+221E;
+    }
   }
 }
 
-/* Raleway: use @ Symbol (U+0040) from Source Sans 3 */
-@each $style in (normal, italic) {
-  @font-face {
-    @include -default-descriptors('Raleway');
-    font-style: $style;
+@if list.index($families, 'Raleway') {
+  /* Raleway: use @ Symbol (U+0040) from Source Sans 3 */
+  @each $style in $styles {
+    @font-face {
+      @include -default-descriptors('Raleway');
+      font-style: $style;
 
-    src:
-      local('Source Sans 3'),
-      url(-path('Source Sans 3', $style, 'latin')) format('woff2-variations');
-    unicode-range: U+0040;
+      src:
+        local('Source Sans 3'),
+        url(-path('Source Sans 3', $style, 'latin')) format('woff2-variations');
+      unicode-range: U+0040;
+    }
   }
 }

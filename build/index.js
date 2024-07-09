@@ -11,7 +11,7 @@ import chalk from 'chalk';
 import { loadFontConfig } from './config.js';
 import { IN_DIR, OUT_DIR, ROOT_DIR, STYLES, TEST_APP_DIR, UNICODE_RANGES } from './consts.js';
 import { renderIndexSCSS } from './scss.js';
-import { renderFallbackFontsCSS } from './fallback.js';
+import { renderFallbackFontsSCSS } from './fallback.js';
 import { coloredPath } from './utils.js';
 
 const exec = promisify(execOriginal);
@@ -46,7 +46,7 @@ console.log('');
 // _fallback_fonts.scss
 {
   const path = join(OUT_DIR, '_fallback_fonts.scss');
-  await writeFile(path, await renderFallbackFontsCSS(CONFIGS), 'utf-8');
+  await writeFile(path, await renderFallbackFontsSCSS(CONFIGS), 'utf-8');
   console.log('📝 Wrote Fallback Fonts to', coloredPath(path));
 }
 
