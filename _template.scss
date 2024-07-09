@@ -1,8 +1,9 @@
 $base-path: '@arma-events/web-fonts/dist' !default;
-$unicode-ranges: () !default;
+$named-unicode-ranges: () !default;
 $families: () !default;
 $weights: () !default;
 $styles: () !default;
+$ranges: () !default;
 
 @use 'sass:map';
 @use 'sass:string';
@@ -23,7 +24,8 @@ $styles: () !default;
 }
 
 @each $family in $families {
-  @each $subset, $range in $unicode-ranges {
+  @each $subset in $ranges {
+    $range: map.get($named-unicode-ranges, $subset);
     @each $style in $styles {
       @font-face {
         @include -default-descriptors($family);
@@ -39,7 +41,7 @@ $styles: () !default;
 }
 
 
-@if list.index($families, 'Source Sans 3') {
+@if list.index($families, 'Source Sans 3') and list.index($ranges, 'latin') {
   /* Source Sans 3: use ∞ Symbol (U+221E) from Raleway */
   @each $style in $styles {
     @font-face {
@@ -54,7 +56,7 @@ $styles: () !default;
   }
 }
 
-@if list.index($families, 'Raleway') {
+@if list.index($families, 'Raleway') and list.index($ranges, 'latin') {
   /* Raleway: use @ Symbol (U+0040) from Source Sans 3 */
   @each $style in $styles {
     @font-face {

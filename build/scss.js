@@ -32,6 +32,7 @@ export function renderIndexSCSS(configs) {
   return `$base-path: '@arma-events/web-fonts/dist/woff2' !default;
 $families: ${fonts} !default;
 $styles: ${arrayToScssList(STYLES)} !default;
+$ranges: ${arrayToScssList(Object.keys(UNICODE_RANGES))} !default;
 
 @use 'sass:list';
 
@@ -43,7 +44,8 @@ $styles: ${arrayToScssList(STYLES)} !default;
 
 @use './_template.scss' with (
   $base-path: $base-path,
-  $unicode-ranges: ${unicodeRanges},
+  $named-unicode-ranges: ${unicodeRanges},
+  $ranges: $ranges,
   $families: $families,
   $styles: $styles,
   $weights: ${weights},
@@ -60,6 +62,13 @@ $-available-families: ${fonts};
 @each $family in $families {
  @if not list.index($-available-families, $family) {
     @error "#{$family} is not a valid family. Expected one of #{$-available-families}.";
+  }
+}
+
+$-available-ranges: ${arrayToScssList(Object.keys(UNICODE_RANGES))};
+@each $range in $ranges {
+ @if not list.index($-available-ranges, $range) {
+    @error "#{$range} is not a valid range. Expected one of #{$-available-ranges}.";
   }
 }`;
 }
