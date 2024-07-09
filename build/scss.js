@@ -2,18 +2,28 @@
 
 import { UNICODE_RANGES } from './consts.js';
 
+/**
+ * @param {Record<string, string>} obj
+ * @returns {string}
+ */
 function objToScssMap(obj) {
   const entries = Object.entries(obj).map(([k, v]) => `'${k}': '${v}'`);
   return `(${entries.join(', ')})`;
 }
 
 /**
+ * @param {readonly string[]} arr
+ * @returns {string}
+ */
+function arrayToScssList(arr) {
+  return '(' + arr.map((x) => `'${x}'`).join(',') + ')';
+}
+
+/**
  * @param {Record<string, Awaited<ReturnType<import('./config')['loadFontConfig']>>>} configs
  */
 export function renderIndexSCSS(configs) {
-  const fonts = Object.keys(configs)
-    .map((x) => `'${x}'`)
-    .join(',');
+  const fonts = arrayToScssList(Object.keys(configs));
 
   const unicodeRanges = objToScssMap(UNICODE_RANGES);
 
@@ -26,7 +36,7 @@ export function renderIndexSCSS(configs) {
 @use './_template.scss' with (
     $base-path: $base-path,
     $unicode-ranges: ${unicodeRanges},
-    $fonts: (${fonts}),
+    $fonts: ${fonts},
     $weights: ${weights},
 );`;
 }
