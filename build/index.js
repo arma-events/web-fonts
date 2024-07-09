@@ -10,7 +10,7 @@ import prettyBytes from 'pretty-bytes';
 import chalk from 'chalk';
 import { loadFontConfig } from './config.js';
 import { IN_DIR, OUT_DIR, ROOT_DIR, STYLES, TEST_APP_DIR, UNICODE_RANGES } from './consts.js';
-import { renderIndexSCSS } from './scss.js';
+import { arrayToScssList, objToScssMap } from './scss.js';
 import { renderFallbackFontsSCSS } from './fallback.js';
 import { coloredPath } from './utils.js';
 
@@ -36,11 +36,28 @@ console.log(
 );
 console.log('');
 
-// _template.scss
+// index.scss
 {
-  const path = join(OUT_DIR, '_template.scss');
-  await copyFile(join(ROOT_DIR, '_template.scss'), path);
-  console.log('✅ Copied _template.scss to', coloredPath(path));
+  const path = join(OUT_DIR, 'index.scss');
+  await copyFile(join(ROOT_DIR, 'index.scss'), path);
+  console.log('✅ Copied index.scss to', coloredPath(path));
+}
+
+// _build_info.scss
+{
+  const path = join(OUT_DIR, '_build_info.scss');
+  await writeFile(
+    path,
+    [
+      `@use 'sass:map';`,
+      `$families: ${arrayToScssList(Object.keys(CONFIGS))};`,
+      `$styles: ${arrayToScssList(STYLES)};`,
+      `$weights: ${objToScssMap(Object.fromEntries(Object.entries(CONFIGS).map(([k, v]) => [k, v.weight])))};`,
+      `$unicode-ranges: ${objToScssMap(UNICODE_RANGES)};`,
+      `$ranges: map.keys($unicode-ranges)`,
+    ].join('\n'),
+  );
+  console.log('📝 Wrote build infos to', coloredPath(path));
 }
 
 // _fallback_fonts.scss
@@ -48,13 +65,6 @@ console.log('');
   const path = join(OUT_DIR, '_fallback_fonts.scss');
   await writeFile(path, await renderFallbackFontsSCSS(CONFIGS), 'utf-8');
   console.log('📝 Wrote Fallback Fonts to', coloredPath(path));
-}
-
-// index.scss
-{
-  const path = join(OUT_DIR, 'index.scss');
-  await writeFile(path, renderIndexSCSS(CONFIGS), 'utf-8');
-  console.log('📝 Wrote', coloredPath(path));
 }
 
 // index.css

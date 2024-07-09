@@ -1,0 +1,91 @@
+@use './_build_info.scss' as build-info;
+
+$base-path: '@arma-events/web-fonts/dist/woff2' !default;
+$families: build-info.$families !default;
+$styles: build-info.$styles !default;
+$ranges: build-info.$ranges !default;
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
+
+@use './_fallback_fonts.scss' with (
+  $families: $families,
+  $styles: $styles
+);
+
+// check if invalid styles were passed
+@each $style in $styles {
+  @if not list.index(build-info.$styles, $style) {
+    @error "#{$style} is not a valid style. Expected one of #$build-info.$styles}.";
+  }
+}
+
+// check if invalid families were passed
+@each $family in $families {
+  @if not list.index(build-info.$families, $family) {
+    @error "#{$family} is not a valid family. Expected one of #{build-info.$families}.";
+  }
+}
+
+// check if invalid ranges were passed
+@each $range in $ranges {
+  @if not list.index(build-info.$ranges, $range) {
+    @error "#{$range} is not a valid range. Expected one of #{build-info.$ranges}.";
+  }
+}
+
+@mixin -default-descriptors($family) {
+  font-family: $family;
+  font-display: swap;
+  @if map.has-key(build-info.$weights, $family) {
+    font-weight: string.unquote(map.get(build-info.$weights, $family));
+  } @else {
+    font-weight: 200 900;
+  }
+}
+
+@function -path($family, $style, $subset) {
+  @return '#{$base-path}/#{$family}/#{$style}.#{$subset}.woff2';
+}
+
+@each $family in $families {
+  @each $subset in $ranges {
+    $range: map.get(build-info.$unicode-ranges, $subset);
+    @each $style in $styles {
+      @font-face {
+        @include -default-descriptors($family);
+        font-style: string.unquote($style);
+
+        src: local('#{$family}'), url(-path($family, $style, $subset)) format('woff2-variations');
+        unicode-range: string.unquote($range);
+      }
+    }
+  }
+}
+
+@if list.index($families, 'Source Sans 3') and list.index($ranges, 'latin') {
+  /* Source Sans 3: use ∞ Symbol (U+221E) from Raleway */
+  @each $style in $styles {
+    @font-face {
+      @include -default-descriptors('Source Sans 3');
+      font-style: string.unquote($style);
+
+      src: local('Raleway'), url(-path('Raleway', $style, 'latin')) format('woff2-variations');
+      unicode-range: U+221E;
+    }
+  }
+}
+
+@if list.index($families, 'Raleway') and list.index($ranges, 'latin') {
+  /* Raleway: use @ Symbol (U+0040) from Source Sans 3 */
+  @each $style in $styles {
+    @font-face {
+      @include -default-descriptors('Raleway');
+      font-style: string.unquote($style);
+
+      src: local('Source Sans 3'), url(-path('Source Sans 3', $style, 'latin')) format('woff2-variations');
+      unicode-range: U+0040;
+    }
+  }
+}
