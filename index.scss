@@ -17,7 +17,7 @@ $ranges: build-info.$ranges !default;
 // check if invalid styles were passed
 @each $style in $styles {
   @if not list.index(build-info.$styles, $style) {
-    @error "#{$style} is not a valid style. Expected one of #$build-info.$styles}.";
+    @error "#{$style} is not a valid style. Expected one of #{build-info.$styles}.";
   }
 }
 
