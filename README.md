@@ -1,4 +1,4 @@
-# Web Fonts for arma.events
+# Web Fonts for arma.events [![](https://img.shields.io/npm/v/%40arma-events%2Fweb-fonts?style=flat-square)](https://www.npmjs.com/package/@arma-events/web-fonts)
 
 This package includes all web fonts used in arma.events and related projects.
 
