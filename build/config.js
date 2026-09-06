@@ -1,12 +1,12 @@
 // @ts-check
 
 import { join } from 'node:path';
-import { Type } from '@sinclair/typebox';
-import { TypeCompiler } from '@sinclair/typebox/compiler';
+import { Type } from 'typebox';
+import Schema from 'typebox/schema';
 import { importJSON } from './utils.js';
 import { IN_DIR } from './consts.js';
 
-const CONFIG_SCHEMA = TypeCompiler.Compile(
+const CONFIG_SCHEMA = Schema.Compile(
   Type.Object(
     {
       weight: Type.String(),
@@ -21,5 +21,5 @@ const CONFIG_SCHEMA = TypeCompiler.Compile(
  */
 export async function loadFontConfig(name) {
   const json = await importJSON(join(IN_DIR, name, 'config.json'));
-  return { ...CONFIG_SCHEMA.Decode(json), path: join(IN_DIR, name) };
+  return { ...CONFIG_SCHEMA.Parse(json), path: join(IN_DIR, name) };
 }
