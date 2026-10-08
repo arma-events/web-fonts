@@ -27,7 +27,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Raleway', 'Raleway Fallback', sans-serif; /* Make sure to include the fallback font to reduce layout shift */
+  font-family:
+    'Raleway', 'Raleway Fallback', sans-serif; /* Make sure to include the fallback font to reduce layout shift */
 }
 ```
 

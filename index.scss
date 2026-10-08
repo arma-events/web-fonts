@@ -58,7 +58,9 @@ $ranges: build-info.$ranges !default;
         font-style: string.unquote($style);
 
         $path: -path($family, $style, $subset);
-        src: local('#{$family}'), url($path) format('woff2-variations');
+        src:
+          local('#{$family}'),
+          url($path) format('woff2-variations');
         unicode-range: string.unquote($range);
       }
     }
@@ -73,7 +75,9 @@ $ranges: build-info.$ranges !default;
       font-style: string.unquote($style);
 
       $path: -path('Raleway', $style, 'latin');
-      src: local('Raleway'), url($path) format('woff2-variations');
+      src:
+        local('Raleway'),
+        url($path) format('woff2-variations');
       unicode-range: U+221E;
     }
   }
@@ -87,7 +91,9 @@ $ranges: build-info.$ranges !default;
       font-style: string.unquote($style);
 
       $path: -path('Source Sans 3', $style, 'latin');
-      src: local('Source Sans 3'), url($path) format('woff2-variations');
+      src:
+        local('Source Sans 3'),
+        url($path) format('woff2-variations');
       unicode-range: U+0040;
     }
   }

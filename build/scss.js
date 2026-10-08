@@ -1,7 +1,5 @@
 // @ts-check
 
-import { STYLES, UNICODE_RANGES } from './consts.js';
-
 /**
  * @param {Record<string, string>} obj
  * @returns {string}

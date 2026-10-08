@@ -47,10 +47,10 @@ This directory contains all fonts that should be built. Each font has a subdirec
 - `static/normal.ttf`: The static font in the normal style and regular weight _(is only used to calculate the overrides of the fallback font)_
 - `static/italic.ttf`: The static font in the italic style and regular weight _(is only used to calculate the overrides of the fallback font)_
 - `config.json`: The configuration for the font. Includes an object, which has to have the following properties:
-  | Key | Example | Description |
-  | --- | --- | --- |
-  | `weight` | `200 900` | Value to set for [`font-weight`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-weight) in the [`@font-face` at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) |
-  | `fallbackFontFamily` | `Trebuchet MS` | Name of the fallback font family to use. `" Italic"` is automatically appended for the italic style. See the `fallback_fonts/`-directory for possible values. |
+  | Key                  | Example        | Description                                                                                                                                                                                          |
+  | -------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `weight`             | `200 900`      | Value to set for [`font-weight`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-weight) in the [`@font-face` at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) |
+  | `fallbackFontFamily` | `Trebuchet MS` | Name of the fallback font family to use. `" Italic"` is automatically appended for the italic style. See the `fallback_fonts/`-directory for possible values.                                        |
 
 #### `index.scss`
 
